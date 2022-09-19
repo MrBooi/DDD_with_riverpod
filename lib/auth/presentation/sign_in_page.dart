@@ -7,8 +7,6 @@ class SignInPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authNotifier = ref.watch(authNotifierProvider);
-
     ref.listen(authNotifierProvider, ((previous, state) {
       state.maybeWhen(
         orElse: () {},

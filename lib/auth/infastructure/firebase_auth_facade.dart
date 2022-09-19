@@ -2,7 +2,6 @@ import 'package:ddd_riverpod/auth/domain/auth_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ddd_riverpod/auth/domain/i_auth_facase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthFacade implements IAuthFacade {
