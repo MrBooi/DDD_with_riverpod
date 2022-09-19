@@ -48,7 +48,10 @@ class FirebaseAuthFacade implements IAuthFacade {
   @override
   Future<Either<AuthFailure, Unit>> signOut() async {
     try {
-      await _googleSignIn.signOut();
+      await Future.wait([
+        _firebaseAuth.signOut(),
+        _googleSignIn.signOut(),
+      ]);
       return right(unit);
     } catch (_) {
       return left(const AuthFailure.serverError());

@@ -440,6 +440,8 @@ abstract class _$$_FailureCopyWith<$Res> {
           _$_Failure value, $Res Function(_$_Failure) then) =
       __$$_FailureCopyWithImpl<$Res>;
   $Res call({AuthFailure failure});
+
+  $AuthFailureCopyWith<$Res> get failure;
 }
 
 /// @nodoc
@@ -461,6 +463,13 @@ class __$$_FailureCopyWithImpl<$Res> extends _$AuthStateCopyWithImpl<$Res>
           : failure // ignore: cast_nullable_to_non_nullable
               as AuthFailure,
     ));
+  }
+
+  @override
+  $AuthFailureCopyWith<$Res> get failure {
+    return $AuthFailureCopyWith<$Res>(_value.failure, (value) {
+      return _then(_value.copyWith(failure: value));
+    });
   }
 }
 
