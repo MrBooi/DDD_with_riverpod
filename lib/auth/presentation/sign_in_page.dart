@@ -1,4 +1,6 @@
 import 'package:ddd_riverpod/auth/shared/provider.dart';
+import 'package:ddd_riverpod/core/shared/widgets/render_local_image.dart';
+import 'package:ddd_riverpod/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -25,8 +27,8 @@ class SignInPage extends ConsumerWidget {
                   vertical: MediaQuery.of(context).size.height * 0.2),
               child: Column(
                 children: [
-                  Image.asset(
-                    'assets/logo.jpeg',
+                  RenderLocalImage(
+                    imagePath: Assets.logo.path,
                     height: 150,
                   ),
                   const SizedBox(height: 10),
