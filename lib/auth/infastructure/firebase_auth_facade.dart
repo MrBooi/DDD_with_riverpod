@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ddd_riverpod/auth/domain/auth_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ddd_riverpod/auth/domain/i_auth_facade.dart';

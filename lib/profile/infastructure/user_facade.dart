@@ -9,17 +9,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
 class UserFacade extends IUserFacade {
-  final FirebaseFirestore _firestore;
+  final FirebaseFirestore _fireStore;
   final FirebaseAuth _firebaseAuth;
 
   UserFacade(
-    this._firestore,
+    this._fireStore,
     this._firebaseAuth,
   );
 
   @override
   Future<Option<bool>> isUserExist(String uuid) async {
-    final documentSnapShot = await _firestore.userCollection.doc(uuid).get();
+    final documentSnapShot = await _fireStore.userCollection.doc(uuid).get();
     return some(documentSnapShot.exists);
   }
 
@@ -27,7 +27,7 @@ class UserFacade extends IUserFacade {
   Future<Either<UserFailure, Unit>> addUser(UserEntity userEntity) async {
     try {
       final userDTO = UserDTO.fromDomain(userEntity);
-      await _firestore.userCollection.doc(userDTO.uuid).set(userDTO.toJson());
+      await _fireStore.userCollection.doc(userDTO.uuid).set(userDTO.toJson());
       return right(unit);
     } on PlatformException catch (e) {
       if (e.message?.contains("PERMISSION_DENIED") == true) {
@@ -52,7 +52,7 @@ class UserFacade extends IUserFacade {
   Future<Either<UserFailure, UserEntity>> getUser() async {
     try {
       final uuid = await _firebaseAuth.currentUser?.uid;
-      final userDoc = await _firestore.userCollection.doc(uuid).get();
+      final userDoc = await _fireStore.userCollection.doc(uuid).get();
       final user = UserDTO.fromFireStore(userDoc).copyWith(
         uuid: uuid,
       );
@@ -76,7 +76,7 @@ class UserFacade extends IUserFacade {
     try {
       var userDTO = UserDTO.fromDomain(userEntity);
 
-      await _firestore.userCollection.doc(userDTO.uuid).update(
+      await _fireStore.userCollection.doc(userDTO.uuid).update(
             userDTO.toJson(),
           );
 
