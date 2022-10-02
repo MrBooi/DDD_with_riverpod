@@ -9,14 +9,17 @@ class SignInPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.listen(authNotifierProvider, ((previous, state) {
-      state.maybeWhen(
-        orElse: () {},
-        failure: (failure) {
-          debugPrint('Show error dialog with error: ${failure.toString()}');
-        },
-      );
-    }));
+    ref.listen(
+      authNotifierProvider,
+      (previous, state) {
+        state.maybeWhen(
+          orElse: () {},
+          failure: (failure) {
+            debugPrint('Show error dialog with error: ${failure.toString()}');
+          },
+        );
+      },
+    );
 
     return Scaffold(
       body: Stack(

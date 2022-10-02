@@ -1,15 +1,20 @@
 import 'package:ddd_riverpod/auth/domain/auth_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ddd_riverpod/auth/domain/i_auth_facade.dart';
+import 'package:ddd_riverpod/profile/domain/user_dto.dart';
+import 'package:ddd_riverpod/profile/domain/user_entity.dart';
+import 'package:ddd_riverpod/profile/infastructure/user_facade.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthFacade implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  final UserFacade _userFacade;
   FirebaseAuthFacade(
     this._firebaseAuth,
     this._googleSignIn,
+    this._userFacade,
   );
 
   @override
@@ -33,6 +38,23 @@ class FirebaseAuthFacade implements IAuthFacade {
       );
 
       await _firebaseAuth.signInWithCredential(authCredential);
+
+      final uuid = _firebaseAuth.currentUser!.uid;
+      final userExist = await _userFacade.isUserExist(uuid);
+
+      userExist.fold(
+        () {},
+        (exist) {
+          if (exist) {
+            final user = UserDTO.fromFireStoreUser(
+              _firebaseAuth.currentUser!,
+            );
+            _userFacade.addUser(user.toDomain());
+            // TODO Hanlde error
+          }
+        },
+      );
+
       return right(unit);
     } on FirebaseAuthException catch (_) {
       return left(const AuthFailure.serverError());
