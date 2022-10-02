@@ -11,3 +11,7 @@ futter_gen_activate:
 
 flutter_gen_run:
 	fluttergen
+
+
+flutter_native_splash:
+	flutter pub run flutter_native_splash:create

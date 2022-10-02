@@ -51,6 +51,8 @@ dependencies:
   # Functional programming
   dartz: ^0.10.1
 
+  flutter_native_splash: ^2.2.10+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -69,6 +71,9 @@ flutter_gen:
   # Optional
   integrations:
     flutter_svg: true
+
+flutter_native_splash:
+  background_image: "assets/logo.png"
 
 flutter:
   uses-material-design: true
