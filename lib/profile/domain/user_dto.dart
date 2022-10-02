@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ddd_riverpod/profile/domain/user_entity.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_dto.freezed.dart';
@@ -29,6 +30,15 @@ abstract class UserDTO implements _$UserDTO {
       displayName: userEntity.displayName,
       userName: userEntity.userName,
       photoUrl: userEntity.photoUrl,
+    );
+  }
+
+  factory UserDTO.fromFireStoreUser(User user) {
+    return UserDTO(
+      uuid: user.uid,
+      displayName: user.displayName ?? '',
+      userName: '',
+      photoUrl: user.photoURL ?? '',
     );
   }
 
