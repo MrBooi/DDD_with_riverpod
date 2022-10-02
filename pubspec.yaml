@@ -35,7 +35,7 @@ dependencies:
   firebase_core: ^1.22.0
   cloud_firestore: ^3.4.8
   # state management
-  flutter_riverpod: ^1.0.4
+  flutter_riverpod: ^2.0.1
   # app packages
   flutter_spinkit: ^5.1.0
   intl: ^0.17.0
