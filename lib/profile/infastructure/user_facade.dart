@@ -1,0 +1,96 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dartz/dartz.dart';
+import 'package:ddd_riverpod/core/extensions/firebase_x.dart';
+import 'package:ddd_riverpod/profile/domain/i_user_facade.dart';
+import 'package:ddd_riverpod/profile/domain/user_dto.dart';
+import 'package:ddd_riverpod/profile/domain/user_entity.dart';
+import 'package:ddd_riverpod/profile/domain/user_failure.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
+
+class UserFacade extends IUserFacade {
+  final FirebaseFirestore _firestore;
+  final FirebaseAuth _firebaseAuth;
+
+  UserFacade(
+    this._firestore,
+    this._firebaseAuth,
+  );
+
+  @override
+  Future<Option<bool>> isUserExist(String uuid) async {
+    final documentSnapShot = await _firestore.userCollection.doc(uuid).get();
+    return some(documentSnapShot.exists);
+  }
+
+  @override
+  Future<Either<UserFailure, Unit>> addUser(UserEntity userEntity) async {
+    try {
+      final userDTO = UserDTO.fromDomain(userEntity);
+      await _firestore.userCollection.doc(userDTO.uuid).set(userDTO.toJson());
+      return right(unit);
+    } on PlatformException catch (e) {
+      if (e.message?.contains("PERMISSION_DENIED") == true) {
+        return left(const UserFailure.insufficientPermission());
+      } else {
+        return left(const UserFailure.unexpected());
+      }
+    } catch (_) {
+      return left(const UserFailure.serverError());
+    }
+  }
+
+  @override
+  Stream<Either<UserFailure, List<UserEntity>>> findUsersByUsername(
+    String username,
+  ) {
+    // TODO: implement findUserByUsername
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<UserFailure, UserEntity>> getUser() async {
+    try {
+      final uuid = await _firebaseAuth.currentUser?.uid;
+      final userDoc = await _firestore.userCollection.doc(uuid).get();
+      final user = UserDTO.fromFireStore(userDoc).copyWith(
+        uuid: uuid,
+      );
+
+      return right(user.toDomain());
+    } on PlatformException catch (e) {
+      if (e.message?.contains('PERMISSION_DENIED') == true) {
+        return left(const UserFailure.insufficientPermission());
+      } else if (e.message?.contains('NOT_FOUND') == true) {
+        return left(const UserFailure.notFound());
+      } else {
+        return left(const UserFailure.unexpected());
+      }
+    } catch (_) {
+      return left(const UserFailure.serverError());
+    }
+  }
+
+  @override
+  Future<Either<UserFailure, Unit>> updateUser(UserEntity userEntity) async {
+    try {
+      var userDTO = UserDTO.fromDomain(userEntity);
+
+      await _firestore.userCollection.doc(userDTO.uuid).update(
+            userDTO.toJson(),
+          );
+
+      return right(unit);
+    } on PlatformException catch (e) {
+      if (e.message?.contains('PERMISSION_DENIED') == true) {
+        return left(const UserFailure.insufficientPermission());
+      } else if (e.message?.contains('NOT_FOUND') == true) {
+        return left(const UserFailure.unableToUpdate());
+      } else {
+        return left(const UserFailure.unexpected());
+      }
+    } catch (_) {
+      return left(const UserFailure.serverError());
+    }
+  }
+}
