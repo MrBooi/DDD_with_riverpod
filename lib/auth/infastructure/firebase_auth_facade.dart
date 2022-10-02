@@ -8,11 +8,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 class FirebaseAuthFacade implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
-  final FirebaseFirestore _firebaseFirestore;
   FirebaseAuthFacade(
     this._firebaseAuth,
     this._googleSignIn,
-    this._firebaseFirestore,
   );
 
   @override
