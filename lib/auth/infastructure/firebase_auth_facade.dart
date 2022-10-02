@@ -1,21 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ddd_riverpod/auth/domain/auth_failure.dart';
 import 'package:dartz/dartz.dart';
-import 'package:ddd_riverpod/auth/domain/i_auth_facase.dart';
+import 'package:ddd_riverpod/auth/domain/i_auth_facade.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthFacade implements IAuthFacade {
   final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
+  final FirebaseFirestore _firebaseFirestore;
   FirebaseAuthFacade(
     this._firebaseAuth,
     this._googleSignIn,
+    this._firebaseFirestore,
   );
-
-  @override
-  Future<Option<bool>> isUserExist() {
-    throw UnimplementedError();
-  }
 
   @override
   Future<bool> isSignIn() async {
