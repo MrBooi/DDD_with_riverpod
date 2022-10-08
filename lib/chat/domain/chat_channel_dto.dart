@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ddd_riverpod/chat/domain/chat_channel_entity.dart';
 import 'package:ddd_riverpod/profile/domain/user_dto.dart';
-import 'package:ddd_riverpod/profile/domain/user_entity.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'chat_channel_dto.freezed.dart';
