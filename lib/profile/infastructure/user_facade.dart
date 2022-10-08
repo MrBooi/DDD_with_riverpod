@@ -41,11 +41,22 @@ class UserFacade extends IUserFacade {
   }
 
   @override
-  Stream<Either<UserFailure, List<UserEntity>>> findUsersByUsername(
+  Stream<List<UserEntity>> findUsersByUsername(
     String username,
   ) {
-    // TODO: implement findUserByUsername
-    throw UnimplementedError();
+    final querySnapShot = _fireStore.userCollection
+        .where('username', isEqualTo: username)
+        .snapshots();
+
+    return querySnapShot.map((snapshot) {
+      final users = <UserEntity>[];
+
+      for (var doc in snapshot.docs) {
+        final userDTO = UserDTO.fromFireStore(doc);
+        users.add(userDTO.toDomain());
+      }
+      return users;
+    });
   }
 
   @override

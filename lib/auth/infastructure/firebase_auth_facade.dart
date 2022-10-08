@@ -2,7 +2,6 @@ import 'package:ddd_riverpod/auth/domain/auth_failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ddd_riverpod/auth/domain/i_auth_facade.dart';
 import 'package:ddd_riverpod/profile/domain/user_dto.dart';
-import 'package:ddd_riverpod/profile/domain/user_entity.dart';
 import 'package:ddd_riverpod/profile/infastructure/user_facade.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
