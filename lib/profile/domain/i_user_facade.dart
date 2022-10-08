@@ -7,7 +7,7 @@ abstract class IUserFacade {
   Future<Either<UserFailure, Unit>> addUser(UserEntity userEntity);
   Future<Either<UserFailure, Unit>> updateUser(UserEntity userEntity);
   Future<Either<UserFailure, UserEntity>> getUser();
-  Stream<Either<UserFailure, List<UserEntity>>> findUsersByUsername(
+  Stream<List<UserEntity>> findUsersByUsername(
     String username,
   );
 }
