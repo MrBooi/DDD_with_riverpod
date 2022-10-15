@@ -1,5 +1,5 @@
-import 'package:ddd_riverpod/auth/application/auth_state.dart';
-import 'package:ddd_riverpod/auth/shared/provider.dart';
+import 'package:ddd_riverpod/features/auth/application/auth_state.dart';
+import 'package:ddd_riverpod/features/auth/shared/provider.dart';
 import 'package:ddd_riverpod/core/presentation/routes/app_router.gr.dart';
 import 'package:ddd_riverpod/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
