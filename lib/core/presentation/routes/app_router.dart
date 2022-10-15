@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:ddd_riverpod/auth/presentation/sign_in_page.dart';
-import 'package:ddd_riverpod/splash/presentation/splash_page.dart';
+import 'package:ddd_riverpod/features/auth/presentation/sign_in_page.dart';
+import 'package:ddd_riverpod/features/splash/presentation/splash_page.dart';
 
 @MaterialAutoRouter(
   routes: [
