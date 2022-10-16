@@ -28,6 +28,7 @@ class HomeBody extends StatelessWidget {
                   }
                   return ChannelList(
                     chatChannels: response,
+                    ref: ref,
                   );
                 },
               ),
