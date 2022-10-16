@@ -1,5 +1,7 @@
 import 'package:ddd_riverpod/features/auth/shared/provider.dart';
 import 'package:ddd_riverpod/features/chat/shared/provider.dart';
+import 'package:ddd_riverpod/features/home/presentation/widgets/channel/channel_empty_widget.dart';
+import 'package:ddd_riverpod/features/home/presentation/widgets/channel/channel_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -18,17 +20,15 @@ class HomeBody extends StatelessWidget {
             ));
 
             return Expanded(
-              child: chatsList.map(
-                error: (_) => const Center(
-                  child: Text('something went wrong!'),
-                ),
+              child: chatsList.maybeWhen(
+                orElse: () => const SizedBox.shrink(),
                 data: (response) {
-                  return const Center(
-                    child: Text('user chat list'),
+                  if (response.isEmpty) {
+                    return const ChannelEmptyWidget();
+                  }
+                  return ChannelList(
+                    chatChannels: response,
                   );
-                },
-                loading: (_) {
-                  return const Center(child: Text('loading'));
                 },
               ),
             );
