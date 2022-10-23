@@ -1,16 +1,10 @@
+import 'package:ddd_riverpod/core/shared/providers.dart';
 import 'package:ddd_riverpod/features/auth/application/auth_state.dart';
 import 'package:ddd_riverpod/features/auth/shared/provider.dart';
 import 'package:ddd_riverpod/core/presentation/routes/app_router.gr.dart';
 import 'package:ddd_riverpod/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-final initializationProvider = FutureProvider<void>(
-  ((ref) async {
-    final authNotifier = ref.read(authNotifierProvider.notifier);
-    await authNotifier.checkAndUpdateUserAuthStatus();
-  }),
-);
 
 class AppWidget extends ConsumerWidget {
   AppWidget({super.key});
