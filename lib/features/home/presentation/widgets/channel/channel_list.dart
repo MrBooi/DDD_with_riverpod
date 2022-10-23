@@ -1,4 +1,5 @@
 import 'package:ddd_riverpod/features/chat/domain/chat_channel_entity.dart';
+import 'package:ddd_riverpod/features/home/presentation/widgets/channel/chat_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -19,11 +20,8 @@ class ChannelList extends StatelessWidget {
       itemCount: chatChannels.length,
       itemBuilder: (context, index) {
         final channel = chatChannels[index];
-        return Container(
-          color: Colors.yellowAccent,
-          child: Text(
-            channel.lastMessage,
-          ),
+        return ChannelMessageTile(
+          channelEntity: channel,
         );
       },
     );
