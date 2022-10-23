@@ -22,10 +22,10 @@ class ChannelMessageTile extends ConsumerWidget {
     final theme = Theme.of(context);
 
     final currentUserId = ref.watch(firebaseAuthUserIdProvider);
-
+    // Move code to a state notifier
     oppositeUser = channelEntity.members.firstWhere(
       (user) => user.id != currentUserId,
-    );
+    ); // Move code to a state notifier
     currentUser = channelEntity.members.firstWhere(
       (user) => user.id == currentUserId,
     );
