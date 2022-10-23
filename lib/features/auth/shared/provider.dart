@@ -15,6 +15,9 @@ final googleAuthProvider = Provider<GoogleSignIn>(
   (ref) => GoogleSignIn(),
 );
 
+final authStateChangesProvider = StreamProvider<User?>(
+    (ref) => ref.watch(firebaseAuthProvider).authStateChanges());
+
 final userFacadeProvider = Provider<UserFacade>((ref) {
   return UserFacade(
     ref.watch(fireStoreProvider),
