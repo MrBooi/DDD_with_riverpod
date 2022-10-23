@@ -15,15 +15,23 @@ final googleAuthProvider = Provider<GoogleSignIn>(
   (ref) => GoogleSignIn(),
 );
 
+final userFacadeProvider = Provider<UserFacade>((ref) {
+  return UserFacade(
+    ref.watch(fireStoreProvider),
+    ref.watch(firebaseAuthProvider),
+  );
+});
+
+final firebaseAuthFacadeProvider = Provider<FirebaseAuthFacade>((ref) {
+  return FirebaseAuthFacade(
+    ref.watch(firebaseAuthProvider),
+    ref.watch(googleAuthProvider),
+    ref.watch(userFacadeProvider),
+  );
+});
+
 final authNotifierProvider = StateNotifierProvider<AuthNotifier, AuthState>(
-  (ref) => AuthNotifier(
-    FirebaseAuthFacade(
-      ref.watch(firebaseAuthProvider),
-      ref.watch(googleAuthProvider),
-      UserFacade(
-        ref.watch(fireStoreProvider),
-        ref.watch(firebaseAuthProvider),
-      ),
-    ),
-  ),
+  (ref) => AuthNotifier(ref.watch(
+    firebaseAuthFacadeProvider,
+  )),
 );
