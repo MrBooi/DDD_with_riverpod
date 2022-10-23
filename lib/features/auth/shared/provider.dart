@@ -11,6 +11,10 @@ final firebaseAuthProvider = Provider<FirebaseAuth>(
   (ref) => FirebaseAuth.instance,
 );
 
+final firebaseAuthUserIdProvider = Provider<String?>((ref) {
+  return ref.watch(firebaseAuthProvider).currentUser!.uid;
+});
+
 final googleAuthProvider = Provider<GoogleSignIn>(
   (ref) => GoogleSignIn(),
 );
