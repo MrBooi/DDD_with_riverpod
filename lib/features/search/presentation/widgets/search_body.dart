@@ -38,7 +38,7 @@ class SearchBody extends ConsumerWidget {
             itemCount: value.length,
             itemBuilder: (context, index) {
               final user = value[index];
-              return SearchItem(user: user);
+              return SearchItem(user: user, ref: ref);
             },
           );
         },
