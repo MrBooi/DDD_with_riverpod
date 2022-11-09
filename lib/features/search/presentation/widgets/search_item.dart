@@ -28,10 +28,11 @@ class SearchItem extends StatelessWidget {
   }
 
   Future<void> onTap(BuildContext context, UserEntity user) async {
-    var currentId = ref.read(firebaseAuthUserIdProvider);
-    var channelID = ChatUtils.chatChannelId(user.id, currentId!);
-
-    var channel = await ref.read(chatFacadeProvider).getChatChannel(channelID);
+    final currentId = ref.read(firebaseAuthUserIdProvider);
+    final channelID = ChatUtils.chatChannelId(user.id, currentId!);
+    final channel = await ref.read(chatFacadeProvider).getChatChannel(
+          channelID,
+        );
 
     print(channel?.id);
   }
