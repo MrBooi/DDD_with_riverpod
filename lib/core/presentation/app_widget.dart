@@ -1,3 +1,4 @@
+import 'package:ddd_riverpod/core/shared/providers.dart';
 import 'package:ddd_riverpod/features/auth/application/auth_state.dart';
 import 'package:ddd_riverpod/features/auth/shared/provider.dart';
 import 'package:ddd_riverpod/core/presentation/routes/app_router.gr.dart';
@@ -12,9 +13,12 @@ class AppWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(initializationProvider, (previous, _) {});
     ref.listen<AuthState>(authNotifierProvider, (previous, state) {
       state.maybeWhen(
-        orElse: () {},
+        orElse: () {
+          print('while on loading app router');
+        },
         authenticated: () {
           appRouter.pushAndPopUntil(
             const HomeRoute(),
