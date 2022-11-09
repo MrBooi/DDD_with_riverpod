@@ -18,9 +18,9 @@ class UserFacade extends IUserFacade {
   );
 
   @override
-  Future<Option<bool>> isUserExist(String uuid) async {
+  Future<Option<bool>> isUserExist(String uid) async {
     try {
-      final documentSnapShot = await _fireStore.userCollection.doc(uuid).get();
+      final documentSnapShot = await _fireStore.userCollection.doc(uid).get();
       return some(documentSnapShot.exists);
     } catch (e) {
       return none();
@@ -49,7 +49,7 @@ class UserFacade extends IUserFacade {
     String username,
   ) {
     final querySnapShot = _fireStore.userCollection
-        .where('username', isEqualTo: username)
+        .where('userName', isEqualTo: username)
         .snapshots();
 
     return querySnapShot.map((snapshot) {
