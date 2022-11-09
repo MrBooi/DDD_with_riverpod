@@ -44,7 +44,7 @@ class FirebaseAuthFacade implements IAuthFacade {
       userExist.fold(
         () {},
         (exist) {
-          if (exist) {
+          if (!exist) {
             final user = UserDTO.fromFireStoreUser(
               _firebaseAuth.currentUser!,
             );
