@@ -19,8 +19,12 @@ class UserFacade extends IUserFacade {
 
   @override
   Future<Option<bool>> isUserExist(String uuid) async {
-    final documentSnapShot = await _fireStore.userCollection.doc(uuid).get();
-    return some(documentSnapShot.exists);
+    try {
+      final documentSnapShot = await _fireStore.userCollection.doc(uuid).get();
+      return some(documentSnapShot.exists);
+    } catch (e) {
+      return none();
+    }
   }
 
   @override
