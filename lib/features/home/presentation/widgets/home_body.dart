@@ -21,6 +21,8 @@ class HomeBody extends StatelessWidget {
               uuid!,
             ));
 
+            print(chatsList.error);
+
             return Expanded(
               child: chatsList.maybeWhen(
                 orElse: () => const SizedBox.shrink(),
