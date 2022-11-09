@@ -1,10 +1,19 @@
 import 'package:ddd_riverpod/core/shared/widgets/profile_avatar_widget.dart';
+import 'package:ddd_riverpod/features/auth/shared/provider.dart';
+import 'package:ddd_riverpod/features/chat/shared/provider.dart';
+import 'package:ddd_riverpod/features/chat/shared/utils/chat_utils.dart';
 import 'package:ddd_riverpod/features/profile/domain/user_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SearchItem extends StatelessWidget {
-  const SearchItem({required this.user, super.key});
+  const SearchItem({
+    required this.user,
+    required this.ref,
+    super.key,
+  });
   final UserEntity user;
+  final WidgetRef ref;
 
   @override
   Widget build(BuildContext context) {
@@ -14,11 +23,16 @@ class SearchItem extends StatelessWidget {
       ),
       title: Text(user.displayName),
       subtitle: Text('@${user.userName}'),
-      onTap: () => onTap(),
+      onTap: () => onTap(context, user),
     );
   }
 
-  void onTap() {
-    debugPrint('handle on Tap on a user');
+  Future<void> onTap(BuildContext context, UserEntity user) async {
+    var currentId = ref.read(firebaseAuthUserIdProvider);
+    var channelID = ChatUtils.chatChannelId(user.id, currentId!);
+
+    var channel = await ref.read(chatFacadeProvider).getChatChannel(channelID);
+
+    print(channel?.id);
   }
 }
