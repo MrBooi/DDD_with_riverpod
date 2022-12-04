@@ -10,5 +10,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(ProviderScope(child: AppWidget()));
+  runApp(
+    ProviderScope(
+      overrides: const [],
+      child: AppWidget(),
+    ),
+  );
 }
