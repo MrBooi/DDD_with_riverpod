@@ -1,4 +1,3 @@
-import 'package:ddd_riverpod/core/presentation/app_widget.dart';
 import 'package:ddd_riverpod/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,7 @@ void main() async {
   runApp(
     ProviderScope(
       overrides: const [],
-      child: AppWidget(),
+      child: Container(),
     ),
   );
 }
